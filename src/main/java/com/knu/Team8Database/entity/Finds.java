@@ -17,32 +17,32 @@ public class Finds {
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Users usersId;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "medicineId", nullable = false)
-    private Detail_view detail_view;
+    @JoinColumn(name = "medicine_id", nullable = false)
+    private Detail_view medicineId;
 
     // 기본 생성자, Getter, Setter 등 생략
 
     @Getter
     @Setter
     public static class FindsId implements Serializable {
-        private User user;
-        private Detail_view detail_view;
+        private Users usersId;
+        private Detail_view medicineId;
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             FindsId findsId = (FindsId) o;
-            return Objects.equals(user, findsId.user) && Objects.equals(detail_view, findsId.detail_view);
+            return Objects.equals(usersId, findsId.usersId) && Objects.equals(medicineId, findsId.medicineId);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(user, detail_view);
+            return Objects.hash(usersId, medicineId);
         }
     }
 }

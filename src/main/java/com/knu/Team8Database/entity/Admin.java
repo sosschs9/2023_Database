@@ -16,12 +16,12 @@ public class Admin {
     private String adminId;
 
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR2(20)")
-    private String name;
+    private String adminName;
 
     @Column(name = "password", nullable = false, columnDefinition = "NVARCHAR2(20)")
-    private String password;
+    private String adminPassword;
 
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "adminId")
     private List<Review> reviews;
 
 }

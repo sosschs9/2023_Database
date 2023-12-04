@@ -10,28 +10,28 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class Users {
     @Id
     @Column(name = "user_id", nullable = false, columnDefinition = "NVARCHAR2(20)")
-    private String userId;
+    private String usersId;
 
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR2(20)")
-    private String name;
+    private String usersName;
 
     @Column(name = "birth")
     @Temporal(TemporalType.DATE)
-    private Date birth;
+    private Date usersBirth;
 
     @Column(name = "password", nullable = false, columnDefinition = "NVARCHAR2(20)")
-    private String password;
+    private String usersPassword;
 
     @Column(name = "gender", length = 1)
-    private Character gender;
+    private Character usersGender;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "usersId")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "usersId")
     private List<Finds> finds;
 
 }

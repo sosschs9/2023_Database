@@ -51,10 +51,10 @@ public class Detail_view {
     @Column(name = "component_side_effects", columnDefinition = "NVARCHAR2(50)")
     private String componentSideEffects;
 
-    @OneToMany(mappedBy = "detail_view")
+    @OneToMany(mappedBy = "medicineId")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "detail_view")
+    @OneToMany(mappedBy = "medicineId")
     private List<Finds> finds;
     
 }

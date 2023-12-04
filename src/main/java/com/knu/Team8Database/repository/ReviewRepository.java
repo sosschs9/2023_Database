@@ -27,15 +27,11 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, String> {
-    @Query("SELECT D.medicineName as medicineName, U.name as userName, R.rating as rating, R.comments as comments " +
-            "FROM Review R, User U, Detail_view D"
-    )
+    @Query("SELECT DISTINCT D.medicineId as medicineId, D.medicineName as medicineName, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments " +
+            "FROM Review R " +
+            "JOIN Users U ON R.usersId = U " +
+            "JOIN Detail_view D ON R.medicineId = D")
     List<ReviewDTO> findAllReview();
 
-    @Query("SELECT U.name as userName, R.rating as rating, R.comments as comments " +
-            "FROM Review R, User U, Detail_view D " +
-            "WHERE (:medicine_id IS NULL OR D.medicineId = :medicine_id)"
-    )
-    List<ReviewDTO> findMedicineReview(@Param("medicine_id") String medicine_id);
 
 }
