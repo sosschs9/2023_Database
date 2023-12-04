@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface FindsRepository extends JpaRepository<Finds, String> {
-    @Query("SELECT COUNT(F.usersId) AS findCount, D.medicineId as medicineId, D.medicineName as medicineName " +
+    @Query("SELECT COUNT(distinct F.usersId) AS findCount, D.medicineId as medicineId, D.medicineName as medicineName " +
             "FROM Finds F " +
             "JOIN Detail_view D ON F.medicineId = D " +
             "GROUP BY D.medicineId, D.medicineName " +
