@@ -33,5 +33,12 @@ public interface ReviewRepository extends JpaRepository<Review, String> {
             "JOIN Detail_view D ON R.medicineId = D")
     List<ReviewDTO> findAllReview();
 
+    @Query("SELECT DISTINCT  D.medicineId as medicineId, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments " +
+            "FROM Review R " +
+            "JOIN Users U ON R.usersId = U " +
+            "JOIN Detail_view D ON R.medicineId = D " +
+            "WHERE ( D.medicineId = :medicineId)")
+    List<ReviewDTO> findMedicineReview(@Param("medicineId") String medicineId);
+
 
 }
