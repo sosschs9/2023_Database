@@ -8,6 +8,7 @@
 
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
@@ -128,10 +129,10 @@
                         <span th:text="${review.UserName}" class="font-bold mr-2"></span>
 
                         <span th:switch="${review.Rating}">
-                            <span th:case="'1'" class="font-bold">☆☆☆☆★</span>
-                            <span th:case="'2'" class="font-bold">☆☆☆★★</span>
-                            <span th:case="'3'" class="font-bold">☆☆★★★</span>
-                            <span th:case="'4'" class="font-bold">☆★★★★</span>
+                            <span th:case="'1'" class="font-bold">★☆☆☆☆</span>
+                            <span th:case="'2'" class="font-bold">★★☆☆☆</span>
+                            <span th:case="'3'" class="font-bold">★★★☆☆</span>
+                            <span th:case="'4'" class="font-bold">★★★★☆</span>
                             <span th:case="'5'" class="font-bold">★★★★★</span>
                             <span th:case="*" class="font-bold">☆☆☆☆☆</span>
                         </span>
@@ -142,7 +143,28 @@
 
                 <!-- 리뷰 폼 -->
                 <form action="/review" method="post" class="flex items-start">
-                    <textarea class="w-full p-2 border rounded-md" placeholder="Add a comment"></textarea>
+                    <div class="mx-5 flex flex-row-reverse justify-end text-2xl">
+                        <input type="radio" class="peer hidden" id="value5" value="5" name="rating" />
+                        <label for="value5"
+                               class="cursor-pointer text-gray-400 peer-hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+                        <input type="radio" class="peer hidden" id="value4" value="4" name="rating" />
+                        <label for="value4"
+                               class="cursor-pointer text-gray-400 peer-hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+                        <input type="radio" class="peer hidden" id="value3" value="3" name="rating" />
+                        <label for="value3"
+                               class="cursor-pointer text-gray-400 peer-hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+
+                        <input type="radio" class="peer hidden" id="value2" value="2" name="rating" />
+                        <label for="value2"
+                               class="cursor-pointer text-gray-400 peer-hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+
+                        <input type="radio" class="peer hidden" id="value1" value="1" name="rating" />
+                        <label for="value1"
+                               class="cursor-pointer peer text-gray-400 peer-hover:text-yellow-400 peer-checked:text-yellow-400">★</label>
+                    </div>
+                    <textarea id="comments" name="comments"
+                              class="w-full p-2 border rounded-md" placeholder="Add a comment" required></textarea>
+                    <input type="text" id="medicineId" name="medicineId" class="hidden"/>
                     <button type="submit" class="w-1/6 h-16 bg-blue-800 text-white p-2 rounded-md ml-4">submit</button>
                 </form>
             </div>
@@ -162,10 +184,14 @@
 </footer>
 
 <script>
-  function redirectToDetailPage(medicine_id) {
+    function redirectToDetailPage(medicine_id) {
      window.location.href = '/search?param=' + medicine_id;
-  }
-</script>
+    }
 
+    var currentUrl = window.location.href;
+    var urlParams = new URLSearchParams(currentUrl.split('?')[1]);
+    var medicineId = urlParams.get('param');
+    document.getElementById('medicineId').value = medicineId;
+</script>
 </body>
 </html>

@@ -7,4 +7,5 @@ public interface ReviewDTO {
     String getUsersName();
     String getReviewRating();
     String getReviewComments();
+    String getReviewDate();
 }

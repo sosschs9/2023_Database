@@ -26,4 +26,5 @@ public interface MedicineRepository extends JpaRepository<Detail_view, String> {
                                      @Param("symtomName") String symtomName, @Param("companyName") String companyName,
                                      @Param("medicinePrice") Integer medicinePrice, @Param("symtomField") String symtomField);
 
+    Detail_view findByMedicineId(String medicineId);
 }

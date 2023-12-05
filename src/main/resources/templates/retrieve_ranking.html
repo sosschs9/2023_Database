@@ -94,8 +94,8 @@
                     <tbody>
                     <tr th:each="item : ${findsMap}"
                         th:mId="${item.key}" th:onclick="redirectToDetailPage(this.getAttribute('mId'))" class="cursor-pointer border-b hover:bg-gray-400 rounded py-2 px-4 mx-2">
-                        <td th:text="${item.value.findCount}" class="py-2 px-4 border-b"></td>
-                        <td th:text="${item.value.medicineName}" class="py-2 px-4 border-b"></td>
+                        <td th:text="${item.value.findCount}" class="py-2 px-4 border-b text-center"></td>
+                        <td th:text="${item.value.medicineName}" class="py-2 px-4 border-b text-center"></td>
                     </tr>
                     </tbody>
                 </table>

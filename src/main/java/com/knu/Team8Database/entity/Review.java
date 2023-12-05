@@ -1,19 +1,26 @@
 package com.knu.Team8Database.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.thymeleaf.expression.Strings;
 
 import java.util.Date;
+import java.util.Random;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "review")
 public class Review {
     @Id
     @Column(name = "review_id", nullable = false, length = 6)
     private String reviewId;
+
+
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

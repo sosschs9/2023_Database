@@ -87,10 +87,11 @@
         <table class="w-full bg-white shadow my-10">
           <thead>
           <tr>
-            <th class="py-2 px-4 border-b">사용자명</th>
+            <th class="w-1/6 py-2 px-4 border-b">사용자명</th>
             <th class="py-2 px-4 border-b">의약품명</th>
             <th class="py-2 px-4 border-b">별점</th>
             <th class="py-2 px-4 border-b">평가 내용</th>
+            <th class="w-1/6 py-2 px-4 border-b">작성 일자</th>
           </tr>
           </thead>
           <tbody>
@@ -100,15 +101,16 @@
             <td th:text="${item.medicineName}" class="m-16 py-2 px-4 border-b text-center dynamic-text"></td>
 
             <span th:switch="${item.rating}">
-              <td th:case="'1'" class="py-2 px-4 border-b text-center">☆☆☆☆★</td>
-              <td th:case="'2'" class="py-2 px-4 border-b text-center">☆☆☆★★</td>
-              <td th:case="'3'" class="py-2 px-4 border-b text-center">☆☆★★★</td>
-              <td th:case="'4'" class="py-2 px-4 border-b text-center">☆★★★★</td>
+              <td th:case="'1'" class="py-2 px-4 border-b text-center">★☆☆☆☆</td>
+              <td th:case="'2'" class="py-2 px-4 border-b text-center">★★☆☆☆</td>
+              <td th:case="'3'" class="py-2 px-4 border-b text-center">★★★☆☆</td>
+              <td th:case="'4'" class="py-2 px-4 border-b text-center">★★★★☆</td>
               <td th:case="'5'" class="py-2 px-4 border-b text-center">★★★★★</td>
               <td th:case="*" class="py-2 px-4 border-b text-center">☆☆☆☆☆</td>
             </span>
 
             <td th:text="${item.comments}" class="py-2 px-4 border-b dynamic-text"></td>
+            <td th:text="${item.date}" class="py-2 px-4 text-center border-b"></td>
           </tr>
           </tbody>
         </table>
@@ -118,9 +120,26 @@
 
     <!-- Pagination -->
     <div class="flex items-center py-8">
-      <a href="#" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center">1</a>
-      <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:bg-blue-600 hover:text-white text-sm flex items-center justify-center">2</a>
-      <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center ml-3">Next <i class="fas fa-arrow-right ml-2"></i></a>
+      <!-- 이전 버튼 -->
+      <span th:if="${currentPage > 1}">
+        <a class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center mr-6"
+           th:href="@{/review(page=${currentPage - 1})}"><i class="fas fa-arrow-left mr-2"></i>  Previous</a>
+      </span>
+
+      <!-- 페이지 버튼 -->
+      <span th:each="i : ${#numbers.sequence(currentPage - 4, currentPage + 5)}"
+            th:if="${i > 0 and i <= totalPages}">
+        <a th:if="${currentPage == i}" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center"
+           th:href="@{/review(page=${i})}" th:text="${i}"></a>
+        <a th:unless="${currentPage == i}" class="h-10 w-10 font-semibold text-gray-800 hover:bg-blue-600 hover:text-white text-sm flex items-center justify-center"
+           th:href="@{/review(page=${i})}" th:text="${i}"></a>
+      </span>
+
+      <!-- 다음 버튼 -->
+      <span th:if="${currentPage < totalPages}">
+        <a class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center ml-3"
+           th:href="@{/review(page=${currentPage + 1})}">Next <i class="fas fa-arrow-right ml-2"></i></a>
+      </span>
     </div>
   </section>
 </div>

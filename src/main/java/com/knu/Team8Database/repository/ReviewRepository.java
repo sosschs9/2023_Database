@@ -27,16 +27,23 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, String> {
-    @Query("SELECT DISTINCT D.medicineId as medicineId, D.medicineName as medicineName, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments " +
-            "FROM Review R " +
-            "JOIN Users U ON R.usersId = U " +
-            "JOIN Detail_view D ON R.medicineId = D")
-    List<ReviewDTO> findAllReview();
-
-    @Query("SELECT DISTINCT  D.medicineId as medicineId, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments " +
+    @Query("SELECT DISTINCT D.medicineId as medicineId, D.medicineName as medicineName, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments, R.reviewDate as reviewDate " +
             "FROM Review R " +
             "JOIN Users U ON R.usersId = U " +
             "JOIN Detail_view D ON R.medicineId = D " +
-            "WHERE ( D.medicineId = :medicineId)")
+            "ORDER BY R.reviewDate DESC")
+    List<ReviewDTO> findAllReview();
+
+    @Query("SELECT DISTINCT  D.medicineId as medicineId, U.usersName as usersName, R.reviewRating as reviewRating, R.reviewComments as reviewComments, R.reviewDate as reviewDate " +
+            "FROM Review R " +
+            "JOIN Users U ON R.usersId = U " +
+            "JOIN Detail_view D ON R.medicineId = D " +
+            "WHERE ( D.medicineId = :medicineId) " +
+            "ORDER BY R.reviewDate DESC")
     List<ReviewDTO> findMedicineReview(@Param("medicineId") String medicineId);
+
+    @Query("SELECT R.reviewId as reviewID " +
+            "FROM Review R "+
+            "WHERE (R.reviewId =:reviewId)")
+    String findReviewID(@Param("reviewId") String reviewId);
 }

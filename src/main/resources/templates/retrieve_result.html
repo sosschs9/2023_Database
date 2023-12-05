@@ -96,7 +96,7 @@
           <tbody>
           <tr th:each="item : ${responseData}"
               th:mId="${item.key}" th:onclick="redirectToDetailPage(this.getAttribute('mId'))" class="cursor-pointer border-b hover:bg-gray-400 rounded py-2 px-4 mx-2">
-            <td th:text="${item.value.medicineName}" class="py-2 px-4 border-b"></td>
+            <td th:text="${item.value.medicineName}" class="py-2 px-4 border-b dynamic-text"></td>
             <td th:text="${item.value.symptoms}" class="py-2 px-4 border-b"></td>
             <td th:text="${item.value.medicineCapacity}" class="py-2 px-4 border-b"></td>
             <td th:text="${item.value.companyName}" class="py-2 px-4 border-b"></td>
@@ -106,13 +106,6 @@
       </div>
 
     </article>
-
-    <!-- Pagination -->
-    <div class="flex items-center py-8">
-      <a href="#" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center">1</a>
-      <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:bg-blue-600 hover:text-white text-sm flex items-center justify-center">2</a>
-      <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center ml-3">Next <i class="fas fa-arrow-right ml-2"></i></a>
-    </div>
   </section>
 </div>
 
@@ -130,6 +123,17 @@
   function redirectToDetailPage(medicine_id) {
      window.location.href = '/search?param=' + medicine_id;
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+              var dynamicTexts = document.querySelectorAll('.dynamic-text');
+              var maxLength = 15; // 원하는 최대 글자 수
+
+              dynamicTexts.forEach(function (dynamicText) {
+                  if (dynamicText.textContent.length > maxLength) {
+                      dynamicText.textContent = dynamicText.textContent.slice(0, maxLength) + '...';
+                  }
+              });
+          });
 </script>
 
 </body>
